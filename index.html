@@ -2,175 +2,843 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dr. Aryan Sharma – General Physician</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Aryan Sharma Clinic | MBBS, MD Internal Medicine – New Delhi</title>
+  <meta name="description" content="Dr. Aryan Sharma – Expert Internal Medicine physician at Connaught Place, New Delhi. Book your appointment today." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; color: #2d3748; }
+    * { font-family: 'Inter', sans-serif; }
+    .playfair { font-family: 'Playfair Display', serif; }
+    html { scroll-behavior: smooth; }
 
-    /* NAV */
-    nav {
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 60px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      position: sticky; top: 0; z-index: 100;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .logo { font-size: 1.4rem; font-weight: 700; color: #2b6cb0; }
-    .logo span { color: #63b3ed; }
-    nav ul { list-style: none; display: flex; gap: 32px; }
-    nav ul a { text-decoration: none; color: #4a5568; font-weight: 500; transition: color .2s; }
-    nav ul a:hover { color: #2b6cb0; }
-    .btn-nav { background: #2b6cb0; color: #fff !important; padding: 10px 22px; border-radius: 6px; }
-    .btn-nav:hover { background: #2c5282 !important; color: #fff !important; }
-
-    /* HERO */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 80px 60px;
-      background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
-      gap: 40px;
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-20px); }
     }
-    .hero-text h1 { font-size: 2.8rem; line-height: 1.2; color: #1a365d; }
-    .hero-text h1 span { color: #2b6cb0; }
-    .hero-text p { margin: 20px 0 30px; font-size: 1.1rem; color: #4a5568; max-width: 480px; line-height: 1.7; }
-    .btn { display: inline-block; background: #2b6cb0; color: #fff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background .2s; }
-    .btn:hover { background: #2c5282; }
-    .btn-outline { background: transparent; border: 2px solid #2b6cb0; color: #2b6cb0; margin-left: 12px; }
-    .btn-outline:hover { background: #2b6cb0; color: #fff; }
-    .hero-img { width: 340px; height: 340px; border-radius: 50%; object-fit: cover; background: #2b6cb0; display: flex; align-items: center; justify-content: center; font-size: 8rem; flex-shrink: 0; }
+    @keyframes pulse-ring {
+      0%   { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(8px); }
+    }
 
-    /* STATS */
-    .stats { display: flex; justify-content: center; gap: 60px; padding: 50px 60px; background: #2b6cb0; }
-    .stat { text-align: center; color: #fff; }
-    .stat h2 { font-size: 2.5rem; font-weight: 800; }
-    .stat p { font-size: .95rem; opacity: .85; margin-top: 4px; }
+    .animate-fade-up      { animation: fadeInUp 0.8s ease forwards; }
+    .animate-float        { animation: float 4s ease-in-out infinite; }
+    .animate-bounce-slow  { animation: bounce-slow 1.5s ease-in-out infinite; }
 
-    /* SERVICES */
-    .section { padding: 80px 60px; }
-    .section-title { text-align: center; font-size: 2rem; color: #1a365d; margin-bottom: 12px; }
-    .section-sub { text-align: center; color: #718096; margin-bottom: 50px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
-    .card { background: #fff; border-radius: 12px; padding: 36px 28px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.07); transition: transform .2s; }
-    .card:hover { transform: translateY(-6px); }
-    .card-icon { font-size: 2.8rem; margin-bottom: 16px; }
-    .card h3 { font-size: 1.15rem; color: #1a365d; margin-bottom: 10px; }
-    .card p { color: #718096; font-size: .9rem; line-height: 1.6; }
+    .glass {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #1d4ed8, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-light {
+      background: linear-gradient(135deg, #60a5fa, #67e8f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(37,99,235,0.15);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0e7490 100%);
+    }
+    .stats-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    }
+    .testimonial-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 70%, #0e7490 100%);
+    }
+    .pulse-dot::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #06b6d4;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
 
-    /* ABOUT */
-    .about { background: #f7fafc; display: flex; align-items: center; gap: 60px; padding: 80px 60px; }
-    .about-img { font-size: 10rem; flex-shrink: 0; }
-    .about-text h2 { font-size: 2rem; color: #1a365d; margin-bottom: 16px; }
-    .about-text p { color: #4a5568; line-height: 1.8; margin-bottom: 14px; }
-    .badge { display: inline-block; background: #ebf8ff; color: #2b6cb0; border-radius: 20px; padding: 6px 16px; font-size: .85rem; font-weight: 600; margin: 4px; }
-
-    /* TESTIMONIALS */
-    .testimonials { padding: 80px 60px; background: #fff; }
-    .tcard { background: #f7fafc; border-radius: 12px; padding: 32px; border-left: 4px solid #2b6cb0; }
-    .tcard p { color: #4a5568; font-style: italic; line-height: 1.7; }
-    .tcard strong { display: block; margin-top: 16px; color: #2b6cb0; }
-
-    /* APPOINTMENT */
-    .appointment { background: linear-gradient(135deg, #2b6cb0, #2c5282); padding: 80px 60px; text-align: center; color: #fff; }
-    .appointment h2 { font-size: 2.2rem; margin-bottom: 14px; }
-    .appointment p { opacity: .85; margin-bottom: 30px; font-size: 1.05rem; }
-    form { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; max-width: 700px; margin: 0 auto; }
-    input, select { padding: 12px 18px; border-radius: 8px; border: none; font-size: 1rem; flex: 1 1 200px; }
-    button[type=submit] { background: #fff; color: #2b6cb0; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .2s; }
-    button[type=submit]:hover { background: #ebf8ff; }
-
-    /* FOOTER */
-    footer { background: #1a365d; color: #a0aec0; text-align: center; padding: 30px 60px; font-size: .9rem; }
-    footer span { color: #63b3ed; }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(6,182,212,0.2);
+    }
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 3px; }
   </style>
 </head>
-<body>
+<body class="bg-white">
+<div id="root"></div>
 
-<nav>
-  <div class="logo">Dr.<span>Care</span></div>
-  <ul>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#testimonials">Testimonials</a></li>
-    <li><a href="#appointment" class="btn-nav">Book Appointment</a></li>
-  </ul>
-</nav>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>Your Health,<br>Our <span>Priority</span></h1>
-    <p>Dr. Aryan Sharma brings 15+ years of compassionate, evidence-based healthcare. Trusted by thousands of patients across the city.</p>
-    <a href="#appointment" class="btn">Book Appointment</a>
-    <a href="#about" class="btn btn-outline">Learn More</a>
-  </div>
-  <div class="hero-img">🩺</div>
-</section>
+/* ── useVisible hook ── */
+function useVisible(threshold = 0.15) {
+  const ref = useRef(null);
+  const [v, setV] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setV(true); },
+      { threshold }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, v];
+}
 
-<div class="stats">
-  <div class="stat"><h2>15+</h2><p>Years Experience</p></div>
-  <div class="stat"><h2>12K+</h2><p>Patients Treated</p></div>
-  <div class="stat"><h2>98%</h2><p>Satisfaction Rate</p></div>
-  <div class="stat"><h2>24/7</h2><p>Emergency Care</p></div>
-</div>
+/* ── Counter ── */
+function Counter({ to, suf = '', dur = 2000 }) {
+  const [ref, visible] = useVisible(0.2);
+  const [count, setCount] = useState(0);
+  const started = useRef(false);
 
-<section class="section" id="services">
-  <h2 class="section-title">Our Services</h2>
-  <p class="section-sub">Comprehensive medical care tailored to your needs</p>
-  <div class="cards">
-    <div class="card"><div class="card-icon">🫀</div><h3>General Checkup</h3><p>Routine health assessments and preventive screenings for all age groups.</p></div>
-    <div class="card"><div class="card-icon">💊</div><h3>Chronic Disease</h3><p>Expert management of diabetes, hypertension, asthma, and thyroid conditions.</p></div>
-    <div class="card"><div class="card-icon">🧬</div><h3>Diagnostics</h3><p>In-clinic lab tests, ECG, and blood panels with same-day results.</p></div>
-    <div class="card"><div class="card-icon">👶</div><h3>Pediatric Care</h3><p>Gentle, child-friendly consultations for infants to teenagers.</p></div>
-    <div class="card"><div class="card-icon">🧠</div><h3>Mental Wellness</h3><p>Screening and counselling for anxiety, stress, and mild depression.</p></div>
-    <div class="card"><div class="card-icon">🚑</div><h3>Emergency</h3><p>24/7 emergency consultations with rapid response coordination.</p></div>
-  </div>
-</section>
+  useEffect(() => {
+    if (!visible || started.current) return;
+    started.current = true;
+    const start = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * to));
+      if (progress < 1) requestAnimationFrame(tick);
+      else setCount(to);
+    };
+    requestAnimationFrame(tick);
+  }, [visible, to, dur]);
 
-<section class="about" id="about">
-  <div class="about-img">👨‍⚕️</div>
-  <div class="about-text">
-    <h2>About Dr. Aryan Sharma</h2>
-    <p>MBBS (AIIMS Delhi), MD – Internal Medicine, Fellowship in Preventive Medicine. Dr. Sharma is a recipient of the National Healthcare Excellence Award (2021) and has been featured in leading medical journals.</p>
-    <p>His clinic is equipped with modern diagnostic tools and a warm, patient-first approach. He believes in educating patients to make informed health decisions.</p>
-    <div>
-      <span class="badge">🏥 AIIMS Alumni</span>
-      <span class="badge">📋 MD Internal Medicine</span>
-      <span class="badge">🏆 Award Winner 2021</span>
-      <span class="badge">💉 Preventive Medicine</span>
-    </div>
-  </div>
-</section>
+  return <span ref={ref}>{count}{suf}</span>;
+}
 
-<section class="testimonials" id="testimonials">
-  <h2 class="section-title">What Patients Say</h2>
-  <p class="section-sub">Hear from those who trust us with their health</p>
-  <div class="cards">
-    <div class="tcard"><p>"Dr. Sharma diagnosed my condition in minutes when other doctors had missed it for months. Incredibly thorough and kind."</p><strong>— Priya M., Software Engineer</strong></div>
-    <div class="tcard"><p>"My whole family visits Dr. Sharma. He explains everything clearly and never rushes. Best GP in the city!"</p><strong>— Rajesh K., Business Owner</strong></div>
-    <div class="tcard"><p>"Managed my diabetes perfectly. Blood sugar is under control for the first time in years. Highly recommended."</p><strong>— Sunita P., Teacher</strong></div>
-  </div>
-</section>
+/* ── Navbar ── */
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-<section class="appointment" id="appointment">
-  <h2>Book Your Appointment</h2>
-  <p>Available Mon–Sat, 9 AM – 7 PM. Emergency slots available 24/7.</p>
-  <form onsubmit="event.preventDefault(); alert('Appointment request sent! We will confirm within 2 hours.')">
-    <input type="text" placeholder="Full Name" required />
-    <input type="tel" placeholder="Phone Number" required />
-    <input type="date" required />
-    <select><option>General Checkup</option><option>Chronic Disease</option><option>Pediatric Care</option><option>Emergency</option></select>
-    <button type="submit">Confirm Appointment</button>
-  </form>
-</section>
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
 
-<footer>
-  <p>📍 12, Health Plaza, Connaught Place, New Delhi &nbsp;|&nbsp; 📞 +91 98100 00001 &nbsp;|&nbsp; ✉️ drsharmaclinic@gmail.com</p>
-  <p style="margin-top:10px">&copy; 2026 <span>Dr. Aryan Sharma Clinic</span>. All rights reserved.</p>
-</footer>
+  const links = ['Services', 'About', 'Testimonials', 'Contact'];
 
+  return (
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-white shadow-lg shadow-blue-100/50' : 'bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2.5">
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center font-black text-lg transition-all duration-300 ${
+              scrolled
+                ? 'bg-blue-600 text-white'
+                : 'bg-white/20 text-white backdrop-blur-sm border border-white/30'
+            }`}>+</div>
+            <span className={`font-bold text-lg transition-colors duration-300 ${scrolled ? 'text-slate-800' : 'text-white'}`}>
+              Dr. Aryan Sharma
+            </span>
+          </a>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-8">
+            {links.map(l => (
+              <a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                className={`nav-link text-sm font-medium transition-colors duration-300 ${
+                  scrolled ? 'text-slate-600 hover:text-blue-600' : 'text-white/90 hover:text-white'
+                }`}
+              >{l}</a>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:-translate-y-0.5 inline-block"
+            >Book Appointment</a>
+          </div>
+
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen(o => !o)}
+            className={`md:hidden p-2 rounded-lg transition-colors ${scrolled ? 'text-slate-700' : 'text-white'}`}
+            aria-label="Toggle menu"
+          >
+            {menuOpen
+              ? <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              : <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            }
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden bg-white rounded-2xl shadow-2xl mx-2 mb-4 p-4 border border-blue-50">
+            {links.map(l => (
+              <a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                onClick={() => setMenuOpen(false)}
+                className="block px-4 py-3 text-slate-700 font-medium hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
+              >{l}</a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              className="block mt-2 bg-blue-600 text-white text-center font-semibold px-4 py-3 rounded-xl hover:bg-blue-700 transition-colors"
+            >Book Appointment</a>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+}
+
+/* ── Hero ── */
+function Hero() {
+  return (
+    <section className="hero-gradient min-h-screen relative overflow-hidden flex items-center">
+      {/* Decorative circles */}
+      <div className="deco-circle w-96 h-96 bg-cyan-400" style={{top:'-5%', right:'-5%'}} />
+      <div className="deco-circle w-64 h-64 bg-blue-400" style={{bottom:'10%', left:'-5%'}} />
+      <div className="deco-circle w-48 h-48 bg-cyan-300" style={{top:'40%', left:'35%'}} />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/30 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-24 pb-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
+
+          {/* Left */}
+          <div className="space-y-8">
+            {/* Accepting patients badge */}
+            <div className="inline-flex items-center gap-2.5 glass rounded-full px-4 py-2">
+              <span className="relative flex h-3 w-3">
+                <span className="pulse-dot relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+              <span className="text-green-300 font-semibold text-sm tracking-wide">Accepting Patients</span>
+            </div>
+
+            <div>
+              <h1 className="playfair text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight">
+                Your Health,<br />
+                <span className="gradient-text-light">Our Mission</span>
+              </h1>
+              <p className="mt-6 text-lg text-blue-100/80 leading-relaxed max-w-lg">
+                Trusted care from <span className="text-cyan-300 font-semibold">Dr. Aryan Sharma</span>, MBBS (AIIMS Delhi), MD Internal Medicine.
+                Advanced diagnostics, compassionate treatment, and 15+ years of expertise — all under one roof.
+              </p>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#contact"
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold px-7 py-3.5 rounded-full transition-all duration-200 shadow-lg shadow-cyan-500/40 hover:shadow-cyan-400/60 hover:-translate-y-0.5 inline-block"
+              >Book Appointment</a>
+              <a
+                href="#about"
+                className="glass hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-200 inline-block"
+              >Learn More</a>
+            </div>
+
+            {/* Icon badges */}
+            <div className="flex flex-wrap gap-4">
+              {[
+                { icon: '⭐', label: '4.9 / 5 Rating', sub: 'Google Reviews' },
+                { icon: '👥', label: '12,000+ Patients', sub: 'Treated Successfully' },
+                { icon: '🏆', label: 'Award 2021', sub: 'National Healthcare' },
+              ].map((b, i) => (
+                <div key={i} className="glass rounded-2xl px-4 py-3 flex items-center gap-3">
+                  <span className="text-2xl">{b.icon}</span>
+                  <div>
+                    <div className="text-white font-bold text-sm">{b.label}</div>
+                    <div className="text-blue-200/70 text-xs">{b.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right – doctor card */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative">
+              <div className="animate-float glass rounded-3xl p-8 text-center w-72 sm:w-80 relative z-10">
+                <div className="text-8xl mb-4">👨‍⚕️</div>
+                <div className="text-white font-bold text-xl mb-1">Dr. Aryan Sharma</div>
+                <div className="text-cyan-300 text-sm font-medium mb-4">MBBS (AIIMS Delhi) · MD</div>
+                <div className="bg-white/10 rounded-xl p-3">
+                  <div className="text-white/90 text-xs font-medium mb-1">Next Available Slot</div>
+                  <div className="text-cyan-300 font-bold">Today, 4:00 PM</div>
+                </div>
+                <div className="absolute -top-4 -right-4 glass rounded-2xl px-3 py-2 text-xs text-white font-semibold whitespace-nowrap">
+                  ✅ Verified Doctor
+                </div>
+                <div className="absolute -bottom-4 -left-4 glass rounded-2xl px-3 py-2 text-xs text-white font-semibold whitespace-nowrap">
+                  🚑 24/7 Emergency
+                </div>
+              </div>
+              <div className="absolute inset-0 rounded-3xl border-2 border-cyan-400/20 scale-110 pointer-events-none" />
+              <div className="absolute inset-0 rounded-3xl border border-blue-400/10 scale-125 pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow">
+        <span className="text-white/50 text-xs font-medium tracking-widest uppercase">Scroll</span>
+        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </section>
+  );
+}
+
+/* ── Stats Bar ── */
+function StatsBar() {
+  const stats = [
+    { icon: '🏥', to: 15,    suf: '+',  label: 'Years Experience',  dur: 2000 },
+    { icon: '👥', to: 12000, suf: '+',  label: 'Patients Treated',  dur: 2500 },
+    { icon: '😊', to: 98,    suf: '%',  label: 'Satisfaction Rate', dur: 2000 },
+    { icon: '🚑', to: 24,    suf: '/7', label: 'Emergency Care',    dur: 1500 },
+  ];
+  return (
+    <section className="stats-gradient py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((s, i) => (
+            <div key={i} className="text-center">
+              <div className="text-3xl mb-3">{s.icon}</div>
+              <div className="text-4xl sm:text-5xl font-black text-white mb-1">
+                <Counter to={s.to} suf={s.suf} dur={s.dur} />
+              </div>
+              <div className="text-blue-200/80 text-sm font-medium">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Services ── */
+function Services() {
+  const [ref, visible] = useVisible();
+  const services = [
+    { icon: '🫀', color: 'bg-red-50',    accent: 'text-red-500',    title: 'Cardiology Checkup',       desc: 'Comprehensive heart health assessment including ECG, echocardiography, and risk stratification by expert cardiologists.' },
+    { icon: '🧬', color: 'bg-purple-50', accent: 'text-purple-500', title: 'Diagnostics & Labs',        desc: 'Advanced in-house laboratory with same-day results for blood panels, imaging, biopsies, and pathology reports.' },
+    { icon: '💊', color: 'bg-orange-50', accent: 'text-orange-500', title: 'Chronic Disease Management',desc: 'Ongoing management of diabetes, hypertension, asthma, and other chronic conditions with personalised care plans.' },
+    { icon: '👶', color: 'bg-green-50',  accent: 'text-green-500',  title: 'Pediatric Care',            desc: 'Gentle, comprehensive pediatric consultations — from newborn wellness to adolescent health and vaccinations.' },
+    { icon: '🧠', color: 'bg-indigo-50', accent: 'text-indigo-500', title: 'Mental Wellness',           desc: 'Compassionate mental health support including stress management, anxiety counselling, and psychiatric referrals.' },
+    { icon: '🔬', color: 'bg-cyan-50',   accent: 'text-cyan-600',   title: 'Preventive Medicine',       desc: 'Annual wellness exams, cancer screenings, immunisations, and lifestyle coaching to keep you ahead of illness.' },
+  ];
+
+  return (
+    <section id="services" className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div
+          ref={ref}
+          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+            <span>🩺</span> Our Specialties
+          </div>
+          <h2 className="playfair text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
+            World-Class <span className="gradient-text">Medical Services</span>
+          </h2>
+          <p className="text-slate-500 text-lg leading-relaxed">
+            From routine checkups to complex diagnostics, our clinic offers a complete spectrum of healthcare services tailored to your needs.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((s, i) => (
+            <div
+              key={i}
+              className={`card-hover bg-white rounded-2xl p-7 border border-slate-100 shadow-sm transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className={`${s.color} w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5`}>{s.icon}</div>
+              <h3 className="text-slate-800 font-bold text-lg mb-3">{s.title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">{s.desc}</p>
+              <a href="#contact" className={`${s.accent} text-sm font-semibold hover:underline`}>Learn more →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── About ── */
+function About() {
+  const [ref, visible] = useVisible();
+  const credentials = [
+    { icon: '🎓', title: 'MBBS – AIIMS New Delhi',            sub: 'All India Institute of Medical Sciences, 2005' },
+    { icon: '🏅', title: 'MD Internal Medicine',              sub: 'Post-Graduate Medical Institute, 2009' },
+    { icon: '🔬', title: 'Fellowship – Preventive Medicine',  sub: 'World Health Institute, 2011' },
+    { icon: '🏆', title: 'National Healthcare Award 2021',    sub: 'Govt. of India, Ministry of Health' },
+  ];
+  const miniStats = [
+    { value: '15+',  label: 'Years' },
+    { value: '12K+', label: 'Patients' },
+    { value: '98%',  label: 'Satisfied' },
+    { value: '6',    label: 'Specialties' },
+  ];
+
+  return (
+    <section id="about" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={ref}
+          className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          {/* Left – Doctor card */}
+          <div>
+            <div className="relative rounded-3xl overflow-hidden" style={{background:'linear-gradient(135deg,#1e3a8a,#0e7490)'}}>
+              <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <div className="absolute top-8 right-8 w-40 h-40 rounded-full border-2 border-white" />
+                <div className="absolute bottom-8 left-8 w-24 h-24 rounded-full border border-white" />
+              </div>
+              <div className="relative z-10 p-8 sm:p-10">
+                <div className="text-center mb-8">
+                  <div className="text-7xl mb-4">👨‍⚕️</div>
+                  <div className="text-white font-bold text-2xl">Dr. Aryan Sharma</div>
+                  <div className="text-cyan-300 font-medium mt-1">MBBS (AIIMS Delhi) · MD Internal Medicine</div>
+                  <div className="text-blue-200/70 text-sm mt-1">12, Health Plaza, Connaught Place, New Delhi</div>
+                </div>
+                <div className="grid grid-cols-4 gap-3">
+                  {miniStats.map((m, i) => (
+                    <div key={i} className="glass rounded-2xl p-3 text-center">
+                      <div className="text-white font-black text-lg">{m.value}</div>
+                      <div className="text-blue-200/80 text-xs">{m.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right – Credentials */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+              <span>👤</span> About the Doctor
+            </div>
+            <h2 className="playfair text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
+              Trusted Expertise,<br /><span className="gradient-text">Genuine Care</span>
+            </h2>
+            <p className="text-slate-500 text-base leading-relaxed mb-8">
+              With over 15 years of clinical excellence and a patient-first approach, Dr. Sharma combines the rigour of AIIMS-trained medicine with a warm, empathetic bedside manner.
+              Every patient is treated as an individual with unique needs — not just a set of symptoms.
+            </p>
+            <div className="space-y-4 mb-8">
+              {credentials.map((c, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-4 bg-blue-50 border border-blue-100 rounded-2xl px-5 py-4"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-xl shadow-sm flex-shrink-0">{c.icon}</div>
+                  <div>
+                    <div className="text-slate-800 font-semibold text-sm">{c.title}</div>
+                    <div className="text-slate-500 text-xs mt-0.5">{c.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-full transition-all duration-200 shadow-lg shadow-blue-600/30 hover:-translate-y-0.5"
+            >
+              Consult Today
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Testimonials ── */
+function Testimonials() {
+  const [ref, visible] = useVisible();
+  const reviews = [
+    {
+      quote: "Dr. Sharma diagnosed a heart condition that three other doctors had missed. His thoroughness and expertise are unparalleled. I am healthy today because of him.",
+      name: 'Priya Mehta',
+      role: 'Software Engineer, Bengaluru',
+      initials: 'PM',
+    },
+    {
+      quote: "The clinic has a wonderful atmosphere. Dr. Sharma spends real time with each patient — he actually listens. My entire family now consults him exclusively.",
+      name: 'Rajesh Kapoor',
+      role: 'Retired Banker, New Delhi',
+      initials: 'RK',
+    },
+    {
+      quote: "Outstanding pediatric care for my daughter. Dr. Sharma has a natural way with children — she never dreads her check-ups anymore. Truly exceptional doctor.",
+      name: 'Sunita Verma',
+      role: 'School Teacher, Gurugram',
+      initials: 'SV',
+    },
+  ];
+
+  return (
+    <section id="testimonials" className="py-24 testimonial-gradient relative overflow-hidden">
+      <div className="deco-circle w-80 h-80 bg-cyan-400" style={{top:'-10%', right:'-5%'}} />
+      <div className="deco-circle w-56 h-56 bg-blue-300" style={{bottom:'-5%', left:'5%'}} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div
+          ref={ref}
+          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-sm font-semibold text-cyan-300 mb-4">
+            <span>💬</span> Patient Stories
+          </div>
+          <h2 className="playfair text-4xl sm:text-5xl font-bold text-white mb-4">
+            What Our Patients <span className="gradient-text-light">Say</span>
+          </h2>
+          <p className="text-blue-100/70 text-lg">Real stories from real patients — their health outcomes are our greatest achievement.</p>
+        </div>
+
+        <div className={`grid md:grid-cols-3 gap-6 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {reviews.map((r, i) => (
+            <div
+              key={i}
+              className="glass rounded-3xl p-7 flex flex-col gap-5"
+              style={{ transitionDelay: `${i * 100}ms` }}
+            >
+              {/* Stars */}
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, j) => (
+                  <svg key={j} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                ))}
+              </div>
+              <p className="text-blue-100/90 italic leading-relaxed text-sm flex-1">"{r.quote}"</p>
+              <div className="flex items-center gap-3 pt-3 border-t border-white/10">
+                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                  {r.initials}
+                </div>
+                <div>
+                  <div className="text-white font-semibold text-sm">{r.name}</div>
+                  <div className="text-blue-300/70 text-xs">{r.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Contact / Booking ── */
+function Contact() {
+  const [ref, visible] = useVisible();
+  const [form, setForm] = useState({ name: '', phone: '', date: '', service: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  const handleSubmit = e => { e.preventDefault(); setSubmitted(true); };
+
+  const contactInfo = [
+    { icon: '📍', label: 'Location', value: '12, Health Plaza, Connaught Place, New Delhi – 110001' },
+    { icon: '📞', label: 'Phone',    value: '+91 98100 00001' },
+    { icon: '✉️', label: 'Email',   value: 'drsharmaclinic@gmail.com' },
+    { icon: '🕐', label: 'Hours',   value: 'Mon–Sat: 9 AM – 8 PM  |  Sun: 10 AM – 2 PM' },
+  ];
+
+  return (
+    <section id="contact" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={ref}
+          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 rounded-full px-4 py-1.5 text-sm font-semibold mb-4">
+            <span>📅</span> Book a Visit
+          </div>
+          <h2 className="playfair text-4xl sm:text-5xl font-bold text-slate-800 mb-4">
+            Schedule Your <span className="gradient-text">Appointment</span>
+          </h2>
+          <p className="text-slate-500 text-lg">Reach out by phone, email, or fill the form. We'll confirm your slot within 2 hours.</p>
+        </div>
+
+        <div className={`grid lg:grid-cols-2 gap-12 items-start transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+          {/* Left – info */}
+          <div className="space-y-5">
+            {contactInfo.map((c, i) => (
+              <div key={i} className="flex items-start gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-xl flex-shrink-0">{c.icon}</div>
+                <div>
+                  <div className="text-slate-500 text-xs font-medium uppercase tracking-wider mb-1">{c.label}</div>
+                  <div className="text-slate-800 font-semibold text-sm leading-relaxed">{c.value}</div>
+                </div>
+              </div>
+            ))}
+            <div className="bg-red-50 border border-red-100 rounded-2xl p-5">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">🚨</span>
+                <div>
+                  <div className="text-red-700 font-bold text-sm">Medical Emergency?</div>
+                  <div className="text-red-600/80 text-xs mt-0.5">Call <span className="font-bold">+91 98100 00001</span> immediately — we provide 24/7 emergency assistance.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right – form */}
+          <div className="bg-gradient-to-br from-slate-50 to-blue-50/50 rounded-3xl p-8 border border-slate-100 shadow-sm">
+            {!submitted ? (
+              <>
+                <h3 className="text-slate-800 font-bold text-xl mb-6">Fill the Form</h3>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-slate-600 text-xs font-semibold uppercase tracking-wider mb-1.5">Full Name *</label>
+                      <input
+                        name="name" value={form.name} onChange={handleChange} required
+                        placeholder="Your name"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 transition-all duration-200 focus:border-cyan-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-slate-600 text-xs font-semibold uppercase tracking-wider mb-1.5">Phone *</label>
+                      <input
+                        name="phone" value={form.phone} onChange={handleChange} required type="tel"
+                        placeholder="+91 XXXXX XXXXX"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 transition-all duration-200 focus:border-cyan-400"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-slate-600 text-xs font-semibold uppercase tracking-wider mb-1.5">Preferred Date *</label>
+                      <input
+                        name="date" value={form.date} onChange={handleChange} required type="date"
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm transition-all duration-200 focus:border-cyan-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-slate-600 text-xs font-semibold uppercase tracking-wider mb-1.5">Service</label>
+                      <select
+                        name="service" value={form.service} onChange={handleChange}
+                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm transition-all duration-200 focus:border-cyan-400"
+                      >
+                        <option value="">Select a service</option>
+                        <option>General Checkup</option>
+                        <option>Cardiology Checkup</option>
+                        <option>Diagnostics &amp; Labs</option>
+                        <option>Pediatric Care</option>
+                        <option>Mental Wellness</option>
+                        <option>Preventive Medicine</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-slate-600 text-xs font-semibold uppercase tracking-wider mb-1.5">Message</label>
+                    <textarea
+                      name="message" value={form.message} onChange={handleChange} rows={3}
+                      placeholder="Briefly describe your symptoms or reason for visit…"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 resize-none transition-all duration-200 focus:border-cyan-400"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 hover:shadow-blue-600/50"
+                  >
+                    Book Appointment →
+                  </button>
+                  <p className="text-slate-400 text-xs text-center">We respect your privacy. Your data is never shared.</p>
+                </form>
+              </>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-6xl mb-5">✅</div>
+                <h3 className="text-slate-800 font-bold text-2xl mb-3">Appointment Requested!</h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                  Thank you, <span className="font-semibold text-blue-600">{form.name || 'there'}</span>!<br />
+                  We'll confirm your appointment within <span className="font-bold text-slate-700">2 hours</span> via call or SMS.
+                </p>
+                <div className="bg-blue-50 rounded-2xl p-4 text-sm text-slate-600 mb-6">
+                  {form.date    && <div><span className="font-medium">📅 Date:</span> {form.date}</div>}
+                  {form.service && <div className="mt-1"><span className="font-medium">🩺 Service:</span> {form.service}</div>}
+                </div>
+                <button
+                  onClick={() => { setSubmitted(false); setForm({ name:'', phone:'', date:'', service:'', message:'' }); }}
+                  className="text-blue-600 font-semibold text-sm hover:text-blue-700 hover:underline"
+                >
+                  Book another →
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Footer ── */
+function Footer() {
+  const quickLinks = ['Services', 'About', 'Testimonials', 'Contact'];
+  const servicesList = ['General Checkup', 'Cardiology', 'Diagnostics & Labs', 'Pediatric Care', 'Mental Wellness', 'Preventive Medicine'];
+
+  return (
+    <footer style={{background:'#111827'}} className="text-slate-400 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-sm">+</div>
+              <span className="text-white font-bold">Dr. Aryan Sharma</span>
+            </div>
+            <p className="text-sm leading-relaxed mb-5">
+              AIIMS-trained physician dedicated to delivering compassionate, high-quality medical care at Connaught Place, New Delhi.
+            </p>
+            <div className="flex gap-3">
+              {[
+                { label: 'f',  title: 'Facebook' },
+                { label: 'in', title: 'LinkedIn' },
+                { label: 'tw', title: 'Twitter'  },
+              ].map((s, i) => (
+                <button key={i} title={s.title} className="w-8 h-8 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center text-xs font-bold text-slate-300 hover:text-white cursor-pointer transition-colors">
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Quick Links</h4>
+            <ul className="space-y-3">
+              {quickLinks.map(l => (
+                <li key={l}>
+                  <a href={`#${l.toLowerCase()}`} className="text-sm hover:text-cyan-400 transition-colors">→ {l}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Services</h4>
+            <ul className="space-y-3">
+              {servicesList.map(s => (
+                <li key={s}>
+                  <a href="#services" className="text-sm hover:text-cyan-400 transition-colors">{s}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Contact</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 flex-shrink-0">📍</span>
+                <span>12, Health Plaza, Connaught Place, New Delhi – 110001</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>📞</span>
+                <a href="tel:+919810000001" className="hover:text-cyan-400 transition-colors">+91 98100 00001</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>✉️</span>
+                <a href="mailto:drsharmaclinic@gmail.com" className="hover:text-cyan-400 transition-colors break-all">drsharmaclinic@gmail.com</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>🕐</span>
+                <span>Mon–Sat: 9 AM – 8 PM</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="border-t border-slate-700/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-slate-500">© 2025 Dr. Aryan Sharma Clinic. All rights reserved.</p>
+          <p className="text-xs text-slate-600">MBBS (AIIMS Delhi) · MD Internal Medicine · New Delhi, India</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ── App ── */
+function App() {
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <StatsBar />
+      <Services />
+      <About />
+      <Testimonials />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
 </body>
 </html>
