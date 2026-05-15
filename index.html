@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Aryan Sharma – General Physician</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; color: #2d3748; }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 60px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 700; color: #2b6cb0; }
+    .logo span { color: #63b3ed; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul a { text-decoration: none; color: #4a5568; font-weight: 500; transition: color .2s; }
+    nav ul a:hover { color: #2b6cb0; }
+    .btn-nav { background: #2b6cb0; color: #fff !important; padding: 10px 22px; border-radius: 6px; }
+    .btn-nav:hover { background: #2c5282 !important; color: #fff !important; }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 60px;
+      background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+      gap: 40px;
+    }
+    .hero-text h1 { font-size: 2.8rem; line-height: 1.2; color: #1a365d; }
+    .hero-text h1 span { color: #2b6cb0; }
+    .hero-text p { margin: 20px 0 30px; font-size: 1.1rem; color: #4a5568; max-width: 480px; line-height: 1.7; }
+    .btn { display: inline-block; background: #2b6cb0; color: #fff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: background .2s; }
+    .btn:hover { background: #2c5282; }
+    .btn-outline { background: transparent; border: 2px solid #2b6cb0; color: #2b6cb0; margin-left: 12px; }
+    .btn-outline:hover { background: #2b6cb0; color: #fff; }
+    .hero-img { width: 340px; height: 340px; border-radius: 50%; object-fit: cover; background: #2b6cb0; display: flex; align-items: center; justify-content: center; font-size: 8rem; flex-shrink: 0; }
+
+    /* STATS */
+    .stats { display: flex; justify-content: center; gap: 60px; padding: 50px 60px; background: #2b6cb0; }
+    .stat { text-align: center; color: #fff; }
+    .stat h2 { font-size: 2.5rem; font-weight: 800; }
+    .stat p { font-size: .95rem; opacity: .85; margin-top: 4px; }
+
+    /* SERVICES */
+    .section { padding: 80px 60px; }
+    .section-title { text-align: center; font-size: 2rem; color: #1a365d; margin-bottom: 12px; }
+    .section-sub { text-align: center; color: #718096; margin-bottom: 50px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+    .card { background: #fff; border-radius: 12px; padding: 36px 28px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.07); transition: transform .2s; }
+    .card:hover { transform: translateY(-6px); }
+    .card-icon { font-size: 2.8rem; margin-bottom: 16px; }
+    .card h3 { font-size: 1.15rem; color: #1a365d; margin-bottom: 10px; }
+    .card p { color: #718096; font-size: .9rem; line-height: 1.6; }
+
+    /* ABOUT */
+    .about { background: #f7fafc; display: flex; align-items: center; gap: 60px; padding: 80px 60px; }
+    .about-img { font-size: 10rem; flex-shrink: 0; }
+    .about-text h2 { font-size: 2rem; color: #1a365d; margin-bottom: 16px; }
+    .about-text p { color: #4a5568; line-height: 1.8; margin-bottom: 14px; }
+    .badge { display: inline-block; background: #ebf8ff; color: #2b6cb0; border-radius: 20px; padding: 6px 16px; font-size: .85rem; font-weight: 600; margin: 4px; }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 80px 60px; background: #fff; }
+    .tcard { background: #f7fafc; border-radius: 12px; padding: 32px; border-left: 4px solid #2b6cb0; }
+    .tcard p { color: #4a5568; font-style: italic; line-height: 1.7; }
+    .tcard strong { display: block; margin-top: 16px; color: #2b6cb0; }
+
+    /* APPOINTMENT */
+    .appointment { background: linear-gradient(135deg, #2b6cb0, #2c5282); padding: 80px 60px; text-align: center; color: #fff; }
+    .appointment h2 { font-size: 2.2rem; margin-bottom: 14px; }
+    .appointment p { opacity: .85; margin-bottom: 30px; font-size: 1.05rem; }
+    form { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; max-width: 700px; margin: 0 auto; }
+    input, select { padding: 12px 18px; border-radius: 8px; border: none; font-size: 1rem; flex: 1 1 200px; }
+    button[type=submit] { background: #fff; color: #2b6cb0; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .2s; }
+    button[type=submit]:hover { background: #ebf8ff; }
+
+    /* FOOTER */
+    footer { background: #1a365d; color: #a0aec0; text-align: center; padding: 30px 60px; font-size: .9rem; }
+    footer span { color: #63b3ed; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Dr.<span>Care</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#appointment" class="btn-nav">Book Appointment</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Your Health,<br>Our <span>Priority</span></h1>
+    <p>Dr. Aryan Sharma brings 15+ years of compassionate, evidence-based healthcare. Trusted by thousands of patients across the city.</p>
+    <a href="#appointment" class="btn">Book Appointment</a>
+    <a href="#about" class="btn btn-outline">Learn More</a>
+  </div>
+  <div class="hero-img">🩺</div>
+</section>
+
+<div class="stats">
+  <div class="stat"><h2>15+</h2><p>Years Experience</p></div>
+  <div class="stat"><h2>12K+</h2><p>Patients Treated</p></div>
+  <div class="stat"><h2>98%</h2><p>Satisfaction Rate</p></div>
+  <div class="stat"><h2>24/7</h2><p>Emergency Care</p></div>
+</div>
+
+<section class="section" id="services">
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">Comprehensive medical care tailored to your needs</p>
+  <div class="cards">
+    <div class="card"><div class="card-icon">🫀</div><h3>General Checkup</h3><p>Routine health assessments and preventive screenings for all age groups.</p></div>
+    <div class="card"><div class="card-icon">💊</div><h3>Chronic Disease</h3><p>Expert management of diabetes, hypertension, asthma, and thyroid conditions.</p></div>
+    <div class="card"><div class="card-icon">🧬</div><h3>Diagnostics</h3><p>In-clinic lab tests, ECG, and blood panels with same-day results.</p></div>
+    <div class="card"><div class="card-icon">👶</div><h3>Pediatric Care</h3><p>Gentle, child-friendly consultations for infants to teenagers.</p></div>
+    <div class="card"><div class="card-icon">🧠</div><h3>Mental Wellness</h3><p>Screening and counselling for anxiety, stress, and mild depression.</p></div>
+    <div class="card"><div class="card-icon">🚑</div><h3>Emergency</h3><p>24/7 emergency consultations with rapid response coordination.</p></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-img">👨‍⚕️</div>
+  <div class="about-text">
+    <h2>About Dr. Aryan Sharma</h2>
+    <p>MBBS (AIIMS Delhi), MD – Internal Medicine, Fellowship in Preventive Medicine. Dr. Sharma is a recipient of the National Healthcare Excellence Award (2021) and has been featured in leading medical journals.</p>
+    <p>His clinic is equipped with modern diagnostic tools and a warm, patient-first approach. He believes in educating patients to make informed health decisions.</p>
+    <div>
+      <span class="badge">🏥 AIIMS Alumni</span>
+      <span class="badge">📋 MD Internal Medicine</span>
+      <span class="badge">🏆 Award Winner 2021</span>
+      <span class="badge">💉 Preventive Medicine</span>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <h2 class="section-title">What Patients Say</h2>
+  <p class="section-sub">Hear from those who trust us with their health</p>
+  <div class="cards">
+    <div class="tcard"><p>"Dr. Sharma diagnosed my condition in minutes when other doctors had missed it for months. Incredibly thorough and kind."</p><strong>— Priya M., Software Engineer</strong></div>
+    <div class="tcard"><p>"My whole family visits Dr. Sharma. He explains everything clearly and never rushes. Best GP in the city!"</p><strong>— Rajesh K., Business Owner</strong></div>
+    <div class="tcard"><p>"Managed my diabetes perfectly. Blood sugar is under control for the first time in years. Highly recommended."</p><strong>— Sunita P., Teacher</strong></div>
+  </div>
+</section>
+
+<section class="appointment" id="appointment">
+  <h2>Book Your Appointment</h2>
+  <p>Available Mon–Sat, 9 AM – 7 PM. Emergency slots available 24/7.</p>
+  <form onsubmit="event.preventDefault(); alert('Appointment request sent! We will confirm within 2 hours.')">
+    <input type="text" placeholder="Full Name" required />
+    <input type="tel" placeholder="Phone Number" required />
+    <input type="date" required />
+    <select><option>General Checkup</option><option>Chronic Disease</option><option>Pediatric Care</option><option>Emergency</option></select>
+    <button type="submit">Confirm Appointment</button>
+  </form>
+</section>
+
+<footer>
+  <p>📍 12, Health Plaza, Connaught Place, New Delhi &nbsp;|&nbsp; 📞 +91 98100 00001 &nbsp;|&nbsp; ✉️ drsharmaclinic@gmail.com</p>
+  <p style="margin-top:10px">&copy; 2026 <span>Dr. Aryan Sharma Clinic</span>. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
